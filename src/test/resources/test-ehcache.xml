@@ -1,0 +1,30 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../config/ehcache.xsd">
+
+    <diskStore path="/Users/chengpeitao"/>
+
+    <defaultCache
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="3"
+            timeToLiveSeconds="3"
+            maxElementsOnDisk="10000000"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU">
+        <persistence strategy="localTempSwap"/>
+    </defaultCache>
+ 
+    
+    <cache name="ehcache1"
+       maxElementsInMemory="10000"
+       maxElementsOnDisk="10000"
+       eternal="true"
+       diskPersistent="true"
+       overflowToDisk="true"
+       diskSpoolBufferSizeMB="20"
+       timeToIdleSeconds="200"
+       timeToLiveSeconds="200"
+       memoryStoreEvictionPolicy="LFU">
+     </cache>
+   
+    
+</ehcache>
