@@ -61,11 +61,11 @@ public abstract class AbstractConfig {
 		return classLoader;
 	}
 	
-	protected InputStream getInputStream() {
+	public InputStream getInputStream() {
 		return inputStream;
 	}
 	
-	protected boolean closeInputStream() {
+	public boolean closeInputStream() {
 		if (inputStream == null)
 			return true;
 		try {

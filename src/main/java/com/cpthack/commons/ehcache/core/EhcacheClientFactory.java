@@ -29,7 +29,7 @@ import com.cpthack.commons.ehcache.constants.EhcacheConstants;
  * <b>EhcacheClientFactory.java</b></br>
  * 
  * <pre>
- * TODO(这里用一句话描述这个类的作用)
+ * CacheClient对象生成工厂类
  * </pre>
  *
  * @author cpthack cpt@jianzhimao.com
@@ -41,32 +41,37 @@ public class EhcacheClientFactory {
 	private static Logger                   logger           = LoggerFactory.getLogger(EhcacheClientFactory.class);
 	private static Map<String, CacheClient> ehcacheClientMap = new ConcurrentHashMap<String, CacheClient>();
 	
-	
 	public static CacheClient getEhcacheClient() {
 		return getEhcacheClient(null);
 	}
 	
 	public static CacheClient getEhcacheClient(EhcacheConfig ehcacheConfig) {
 		CacheClient ehcacheClient = null;
-		String redisConfigFileName = EhcacheConstants.DEFAULT_CONFIG_FILE_NAME;
+		String ehcacheConfigFileName = EhcacheConstants.DEFAULT_CONFIG_FILE_NAME;
 		
 		// 获取默认EhcacheConfig配置的CacheClient对象，并缓存到ehcacheClientMap对象中
 		if (null == ehcacheConfig) {
-			ehcacheClient = ehcacheClientMap.get(redisConfigFileName);
+			ehcacheClient = ehcacheClientMap.get(ehcacheConfigFileName);
 			if (ehcacheClient == null) {
 				ehcacheClient = new EhcacheClient().setEhcacheConfig(null);
-				ehcacheClientMap.put(redisConfigFileName, ehcacheClient);
+				ehcacheClientMap.put(ehcacheConfigFileName, ehcacheClient);
 			}
+			
+			logger.debug("获取默认配置的CacheClient对象,config name = [" + ehcacheConfigFileName + "]");
+			
 			return ehcacheClient;
 		}
 		
 		// 获取自定义的EhcacheConfig配置的RedisClient对象，并缓存到ehcacheClientMap对象中
-		redisConfigFileName = ehcacheConfig.getConfigFile();
-		ehcacheClient = ehcacheClientMap.get(redisConfigFileName);
+		ehcacheConfigFileName = ehcacheConfig.getConfigFile();
+		ehcacheClient = ehcacheClientMap.get(ehcacheConfigFileName);
 		if (ehcacheClient == null) {
 			ehcacheClient = new EhcacheClient().setEhcacheConfig(ehcacheConfig);
-			ehcacheClientMap.put(redisConfigFileName, ehcacheClient);
+			ehcacheClientMap.put(ehcacheConfigFileName, ehcacheClient);
 		}
+		
+		logger.debug("获取自定义配置的CacheClient对象,config name = [" + ehcacheConfigFileName + "]");
+		
 		return ehcacheClient;
 	}
 }

@@ -19,7 +19,7 @@ package com.cpthack.commons.ehcache.exception;
  * <b>EhcacheExcepiton.java</b></br>
  * 
  * <pre>
- * TODO(这里用一句话描述这个类的作用)
+ * 针对Ehcache的相关异常逻辑，自定义异常处理类
  * </pre>
  *
  * @author cpthack cpt@jianzhimao.com

@@ -17,13 +17,17 @@ package com.cpthack.commons.ehcache.core;
 
 import net.sf.ehcache.CacheManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.cpthack.commons.ehcache.config.EhcacheConfig;
+import com.cpthack.commons.ehcache.exception.EhcacheExcepiton;
 
 /**
  * <b>CacheManageFactory.java</b></br>
  * 
  * <pre>
- * TODO(这里用一句话描述这个类的作用)
+ * CacheManager对象生成工厂类
  * </pre>
  *
  * @author cpthack cpt@jianzhimao.com
@@ -32,6 +36,7 @@ import com.cpthack.commons.ehcache.config.EhcacheConfig;
  */
 public class CacheManageFactory {
 	
+	private static Logger       logger       = LoggerFactory.getLogger(CacheManageFactory.class);
 	private static CacheManager cacheManager = null;
 	
 	public static CacheManager getCacheManager() {
@@ -39,11 +44,25 @@ public class CacheManageFactory {
 	}
 	
 	public synchronized static CacheManager getCacheManager(EhcacheConfig ehcacheConfig) {
-		if (null == cacheManager) {
-			if (null == ehcacheConfig)
-				ehcacheConfig = new EhcacheConfig();// 使用默认的Ehcache.xml配置
+		
+		if (null != cacheManager) {
+			return cacheManager;
+		}
+		
+		if (null == ehcacheConfig)
+			ehcacheConfig = new EhcacheConfig();// 使用默认的Ehcache.xml配置
+			
+		try {
 			cacheManager = CacheManager.create(ehcacheConfig.loadConfigFile());
 		}
+		catch (Exception e) {
+			logger.error("获取CacheManager对象失败");
+			throw new EhcacheExcepiton(e);
+		}
+		finally {
+			ehcacheConfig.closeInputStream();
+		}
+		
 		return cacheManager;
 	}
 }

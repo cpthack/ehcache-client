@@ -21,7 +21,8 @@ import com.cpthack.commons.ehcache.constants.EhcacheConstants;
  * <b>EhcacheConfig.java</b></br>
  * 
  * <pre>
- * TODO(这里用一句话描述这个类的作用)
+ * Ehcache默认配置文件，若你需要自定义配置文件，可参考该类自定义创建，
+ * 也可以通过继承该类实现
  * </pre>
  *
  * @author cpthack cpt@jianzhimao.com
@@ -29,6 +30,7 @@ import com.cpthack.commons.ehcache.constants.EhcacheConstants;
  * @since JDK 1.7
  */
 public class EhcacheConfig extends AbstractConfig {
+	
 	private final String FILE_NAME = EhcacheConstants.DEFAULT_CONFIG_FILE_NAME;
 	
 	public EhcacheConfig() {

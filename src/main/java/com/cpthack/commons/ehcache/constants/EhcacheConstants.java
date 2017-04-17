@@ -19,7 +19,7 @@ package com.cpthack.commons.ehcache.constants;
  * <b>EhcacheConstants.java</b></br>
  * 
  * <pre>
- * TODO(这里用一句话描述这个类的作用)
+ * 常量配置文件
  * </pre>
  *
  * @author cpthack cpt@jianzhimao.com
@@ -28,5 +28,8 @@ package com.cpthack.commons.ehcache.constants;
  */
 public class EhcacheConstants {
 	
+	/**
+	 * ehcache默认的配置文件名称
+	 */
 	public static final String DEFAULT_CONFIG_FILE_NAME = "ehcache.xml";
 }

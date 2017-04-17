@@ -28,7 +28,7 @@ import com.cpthack.commons.ehcache.exception.EhcacheExcepiton;
  * <b>EhcacheClient.java</b></br>
  * 
  * <pre>
- * TODO(这里用一句话描述这个类的作用)
+ * CacheClient实现类，针对Ehcache缓存操作的具体实现类
  * </pre>
  *
  * @author cpthack cpt@jianzhimao.com
@@ -52,7 +52,14 @@ public class EhcacheClient implements CacheClient {
 	
 	@Override
 	public String get(String orgin, String key) {
-		Element element = getCache(orgin).get(key);
+		Element element = null;
+		try {
+			element = getCache(orgin).get(key);
+		}
+		catch (Exception e) {
+			logger.error("缓存查询失败，orgin = [" + orgin + "],key = [" + key + "]");
+			throw new EhcacheExcepiton(e);
+		}
 		if (element == null) {
 			return null;
 		}
@@ -61,13 +68,25 @@ public class EhcacheClient implements CacheClient {
 	
 	@Override
 	public boolean put(String orgin, String key, String value) {
-		getCache(orgin).put(new Element(key, value));
+		try {
+			getCache(orgin).put(new Element(key, value));
+		}
+		catch (Exception e) {
+			logger.error("缓存添加失败，orgin = [" + orgin + "],key = [" + key + "],value = [" + value + "]");
+			throw new EhcacheExcepiton(e);
+		}
 		return true;
 	}
 	
 	@Override
 	public boolean delete(String orgin, String key) {
-		return getCache(orgin).remove(key);
+		try {
+			return getCache(orgin).remove(key);
+		}
+		catch (Exception e) {
+			logger.error("删除添加失败，orgin = [" + orgin + "],key = [" + key + "]");
+			throw new EhcacheExcepiton(e);
+		}
 	}
 	
 	@Override
@@ -95,7 +114,8 @@ public class EhcacheClient implements CacheClient {
 		if (cache != null)
 			return cache;
 		else {
-			throw new EhcacheExcepiton("Can't find the cahce.The orgin = [" + orgin + "]");
+			logger.error("Can't find the cahce.The orgin = [" + orgin + "]");
+			throw new NullPointerException("Can't find the cahce.The orgin = [" + orgin + "]");
 		}
 	}
 }
