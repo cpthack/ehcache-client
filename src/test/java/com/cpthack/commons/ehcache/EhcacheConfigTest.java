@@ -21,7 +21,7 @@ import com.cpthack.commons.ehcache.config.EhcacheConfig;
  * <b>EhcacheConfigTest.java</b></br>
  * 
  * <pre>
- * TODO(这里用一句话描述这个类的作用)
+ * Ehcache自定义配置类 - 测试
  * </pre>
  *
  * @author cpthack cpt@jianzhimao.com

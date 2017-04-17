@@ -25,7 +25,7 @@ import com.cpthack.commons.ehcache.core.EhcacheClientFactory;
  * <b>EhcacheClientTest.java</b></br>
  * 
  * <pre>
- * TODO(这里用一句话描述这个类的作用)
+ * Ehcache测试类
  * </pre>
  *
  * @author cpthack cpt@jianzhimao.com
