@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
  * <b>AbstractConfig.java</b></br>
  * 
  * <pre>
- * TODO(这里用一句话描述这个类的作用)
+ * 统一的抽象配置类
  * </pre>
  *
  * @author cpthack cpt@jianzhimao.com
@@ -33,8 +33,8 @@ import org.slf4j.LoggerFactory;
  * @since JDK 1.7
  */
 public abstract class AbstractConfig {
-	private static Logger logger      = LoggerFactory.getLogger(AbstractConfig.class);
-	private InputStream   inputStream = null;
+	private static Logger logger	  = LoggerFactory.getLogger(AbstractConfig.class);
+	private InputStream	  inputStream = null;
 	
 	public InputStream loadConfigFile() {
 		try {
@@ -53,8 +53,7 @@ public abstract class AbstractConfig {
 	}
 	
 	public ClassLoader getClassLoader() {
-		ClassLoader classLoader = Thread.currentThread()
-		        .getContextClassLoader();
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		if (classLoader == null) {
 			classLoader = this.getClass().getClassLoader();
 		}
